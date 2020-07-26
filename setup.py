@@ -6,5 +6,5 @@ setup(name="esimulation",
       author="Bruno Knittel",
       author_email="bruno@knittel.fr",
       packages=["eprodsimulation", "tests"],
-      install_requires=[""],
+      install_requires=["python-dateutil"],
       license="MIT")
