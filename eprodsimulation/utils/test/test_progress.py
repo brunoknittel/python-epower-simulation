@@ -19,7 +19,7 @@
 # ---- END OF LICENSE TEXT ----
 
 import unittest
-from ..utils.progress import Progress
+from ..progress import Progress
 
 class MockNotTestListener(object):
     """
