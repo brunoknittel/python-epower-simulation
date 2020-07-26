@@ -12,9 +12,10 @@ The goal is to simulate solar power for your house/company using
 as much real data as possible.
 
 To Do
-[ ] Architecture for high parallelization
 [ ] Define interfaces for power consumption input
 [ ] Define interfaces for power production input
 [ ] Define simulation interface for power storage
-[ ] Implement power production based on solar surface, angle
+[ ] Implement power production from electricty provider
+[ ] Implement power production based on solar surface, angle and a solar power provider info
+[ ] Generate report
 [ ] Configuration of the simulation using a configuration file
