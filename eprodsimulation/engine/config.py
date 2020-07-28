@@ -33,13 +33,13 @@ class Config(object):
         """
         self._consumers = [ ]
         self._producers = [ ]
+        self._objects = [ ]
 
         with open(path, 'r') as f:
             j = json.load(f)
 
             self._name = j.get('name', "")
             self._timeBegin = dateutil.parser.parse(j['begin'])
-            print("TIME BEGIN = " + str(self._timeBegin))
             self._timeEnd = dateutil.parser.parse(j['end'])
 
     def name(self):
@@ -52,6 +52,7 @@ class Config(object):
         """
         Gets the list of all objects described in this configuration
         that are electricity producers.
+        TODO REMOVE
         """
         return self._producers
 
@@ -59,8 +60,15 @@ class Config(object):
         """
         Gets the list of all objects described in this configuration
         that are electricity consumers.
+        TODO REMOVE
         """
         return self._consumers
+
+    def objects(self):
+        """
+        Gets the list of all objects described in this configuration.
+        """
+        return self._objects
 
     def timeBegin(self):
         """

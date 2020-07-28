@@ -18,27 +18,35 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-from ..engine import EObject
-
-class EConsumer(EObject):
+class PowerEval(object):
     """
-    This is the base class for objects that provides
-    the power usage of the simulated environment.
-    Implementations must be designed to support several instanciations
-    and also calls in different threads on one single instance.
+    Implements several power evaluations using a list of EObjects
     """
-    def consume_required(self, when, timeslice):
-        """
-        Asks for the required power usage at the provided time and for the given
-        time slice.
-        Returns a double in kWh
-        """
-        raise RuntimeError("EConsumer.consume_required is not implemented")
+    def __init__(self, objects):
+        self._objects = objects
 
-    def consume_optional(self, when, timeslice):
+    def required_power(self, now, dt):
         """
-        Asks for optional power usage at the provided time and for the given
-        time slice.
-        Returns a tuple with 1 the kWh and 2 the price paid for it
+        Gets the sum of all required power at a given moment and for a given time
         """
-        raise RuntimeError("EConsumer.consume_optional is not implemented")
+        res = 0.0
+        for o in self._objects:
+            if o.is_consumer():
+                res += o.consume_required(now, dt)
+
+        return res
+
+    def produce_always(self, now, dt):
+        """
+        Gets the sum of produced power at a given moment and for a given time
+        """
+        res = 0.0
+        for o in self._objects:
+            if o.is_producer():
+                res += o.produce_always(now, dt)
+
+        return res
+
+    def consume_optional(self, now, dt):
+        """
+        Gets

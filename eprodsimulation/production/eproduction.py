@@ -23,4 +23,19 @@ class EProduction(object):
     This base class describes an object that provides electricity supply information.
     It can be from the electricity provider, a renewable resource or a storage system.
     """
-    pass
+    def produce_always(self, begin, end):
+        """
+        Returns the amount of energy that is produced no matter the drained power.
+        This is for example what a solar panel or wind mild would return: no mater the power demand
+        it would produce exactly that.
+        """
+        raise RuntimeError("EProduction produce_always is not implemented")
+
+    def produce_on_demand(self, begin, end, kwh):
+        """
+        Returns the amount of energy that can be produced on demand, maximum
+        the number of kwh being provided.
+        It returns a tuple with first the amount of energy and second the cost of this
+        energy.
+        """
+        raise RuntimeError("EProduction produce_on_demand is not implemented")

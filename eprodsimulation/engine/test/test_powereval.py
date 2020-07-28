@@ -18,27 +18,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-from ..engine import EObject
+import unittest
+from ..powereval import PowerEval
+from ..eobject import EObject
+from datetime import datetime, timezone, timedelta
 
-class EConsumer(EObject):
-    """
-    This is the base class for objects that provides
-    the power usage of the simulated environment.
-    Implementations must be designed to support several instanciations
-    and also calls in different threads on one single instance.
-    """
+class ConstantRequired(EObject):
+    def __init__(self, constant):
+        super().__init__(False, True)
+        self._constant = constant
+
     def consume_required(self, when, timeslice):
-        """
-        Asks for the required power usage at the provided time and for the given
-        time slice.
-        Returns a double in kWh
-        """
-        raise RuntimeError("EConsumer.consume_required is not implemented")
+        return self._constant
 
-    def consume_optional(self, when, timeslice):
-        """
-        Asks for optional power usage at the provided time and for the given
-        time slice.
-        Returns a tuple with 1 the kWh and 2 the price paid for it
-        """
-        raise RuntimeError("EConsumer.consume_optional is not implemented")
+class PowerEvalTests(unittest.TestCase):
+    """
+    Tests of the power evaluation object
+    """
+    def test_required_power(self):
+        pe = PowerEval([ConstantRequired(10), ConstantRequired(11)])
+        self.assertEquals(21.0, pe.required_power(datetime.now(timezone.utc), timedelta(1)))
