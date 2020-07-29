@@ -4,6 +4,10 @@
     "end": "2020-07-26T23:06:01Z",
     "objects":
     [ 
-        
+        {
+            "type": "electricity_provider",
+            "price_per_kWh_sold": 0.147,
+            "price_per_kWh_bought": 0.10
+        }
     ]
 }

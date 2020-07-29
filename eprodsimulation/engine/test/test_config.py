@@ -25,6 +25,7 @@ from datetime import datetime
 from dateutil.tz import tzutc
 
 from ..config import Config
+from ...eobjects.electricity_provider import ElectricityProvider
 
 class ConfigTest(unittest.TestCase):
     def _dir_configs(self):
@@ -44,8 +45,7 @@ class ConfigTest(unittest.TestCase):
         """
         c = Config(self._dir_configs() + 'minimal.json')
         self.assertEquals("", c.name())
-        self.assertEquals(0, len(c.producers()))
-        self.assertEquals(0, len(c.consumers()))
+        self.assertEquals(0, len(c.objects()))
         self.assertEquals(datetime(2015, 2, 1, 2, 34, 43, 511000, tzinfo=tzutc()), c.timeBegin())
         self.assertEquals(datetime(2015, 2, 7, 18, 55, 0, tzinfo=tzutc()), c.timeEnd())
 
@@ -60,4 +60,8 @@ class ConfigTest(unittest.TestCase):
         self.assertEquals(datetime(1984, 12, 23, 22, 30, 43, tzinfo=tzutc()), c.timeBegin())
         self.assertEquals(datetime(2020, 7, 26, 23, 6, 1, tzinfo=tzutc()), c.timeEnd())
 
-        raise RuntimeError("Still other things to test")
+        # In objects, there is one and only one
+        self.assertEquals(1, len(c.objects()))
+
+        o = c.objects()[0]
+        self.assertTrue(isinstance(o, ElectricityProvider))

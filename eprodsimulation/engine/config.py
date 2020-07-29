@@ -21,6 +21,7 @@
 import json
 from datetime import datetime
 import dateutil.parser
+from ..eobjects.factory import EObjectFactory
 
 class Config(object):
     """
@@ -29,10 +30,8 @@ class Config(object):
     """
     def __init__(self, path):
         """
-        Initializes the configuration using the provided configuraiton file.
+        Initializes the configuration using the provided configuration file.
         """
-        self._consumers = [ ]
-        self._producers = [ ]
         self._objects = [ ]
 
         with open(path, 'r') as f:
@@ -42,27 +41,17 @@ class Config(object):
             self._timeBegin = dateutil.parser.parse(j['begin'])
             self._timeEnd = dateutil.parser.parse(j['end'])
 
+            factory = EObjectFactory()
+            for d in j.get('objects', []):
+                eobj = factory.create(d.get('type'))
+                eobj.load(d)
+                self._objects.append(eobj)
+
     def name(self):
         """
         Gets the name of this simulation
         """
         return self._name
-
-    def producers(self):
-        """
-        Gets the list of all objects described in this configuration
-        that are electricity producers.
-        TODO REMOVE
-        """
-        return self._producers
-
-    def consumers(self):
-        """
-        Gets the list of all objects described in this configuration
-        that are electricity consumers.
-        TODO REMOVE
-        """
-        return self._consumers
 
     def objects(self):
         """
