@@ -29,7 +29,6 @@ Simulation configuration
 The first thing you'll need is a simulation configuration file. It's in JSON format
 and describes what you want to simulate.
 
-
 Running the simulation
 Once you have this file, running the simulation is as simple as:
 eprodsimulation --config=<path to config file>

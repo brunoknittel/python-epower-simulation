@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-from ..engine import EObject
+from .eobject import EObject
 
 class EConsumer(EObject):
     """
@@ -35,7 +35,7 @@ class EConsumer(EObject):
         """
         raise RuntimeError("EConsumer.consume_required is not implemented")
 
-    def consume_optional(self, when, timeslice):
+    def consume_optional(self, when, timeslice, available_kwh):
         """
         Asks for optional power usage at the provided time and for the given
         time slice.

@@ -18,7 +18,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-class EProduction(object):
+from .eobject import EObject
+
+class EProduction(EObject):
     """
     This base class describes an object that provides electricity supply information.
     It can be from the electricity provider, a renewable resource or a storage system.
