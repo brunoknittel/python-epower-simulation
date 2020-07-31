@@ -20,7 +20,9 @@
 
 import json
 from datetime import datetime
+
 import dateutil.parser
+
 from ..eobjects.factory import EObjectFactory
 
 class Config(object):

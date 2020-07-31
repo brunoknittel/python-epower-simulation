@@ -22,5 +22,27 @@
 #   defines and parses command line arguments
 #   and then run the simulation
 
+import argparse
+
+from core.config import Config
+from core.engine import Engine
+
 if __name__ == "__main__":
-    pass
+    # Command line parsing
+    parser = argparse.ArgumentParser(description='Electrical production and usage simulator.')
+    parser.add_argument('conf', type=str, nargs=1, help='path to the simulation configuration file')
+
+    args = parser.parse_args()
+
+    # Load the configuration file...
+    config = Config(args.conf)
+
+    # ...create the engine and...
+    engine = Engine(config)
+
+    # FIRE!
+    engine.run()
+
+    # hum...at some point we might want to display some progress
+    # and maybe even some results ;-)
+

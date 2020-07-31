@@ -50,3 +50,5 @@ class PowerEval(object):
     def consume_optional(self, now, dt):
         """
         Gets
+        """
+        raise RuntimeError("Not implemented")

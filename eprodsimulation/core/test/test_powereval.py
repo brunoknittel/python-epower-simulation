@@ -20,7 +20,7 @@
 
 import unittest
 from ..powereval import PowerEval
-from ..eobject import EObject
+from ...eobjects.eobject import EObject
 from datetime import datetime, timezone, timedelta
 
 class ConstantRequired(EObject):
