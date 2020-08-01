@@ -29,7 +29,7 @@ from ...eobjects.electricity_provider import ElectricityProvider
 
 class ConfigTest(unittest.TestCase):
     def _dir_configs(self):
-        return './eprodsimulation/core/test/configfiles/'
+        return './esimulation/core/test/configfiles/'
 
     def test_file_doesnt_exist(self):
         """

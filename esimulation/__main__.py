@@ -18,23 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-import unittest
-from ..powereval import PowerEval
-from ...eobjects.eobject import EObject
-from datetime import datetime, timezone, timedelta
+from esimulation.app import run
 
-class ConstantRequired(EObject):
-    def __init__(self, constant):
-        super().__init__(False, True)
-        self._constant = constant
-
-    def consume_required(self, when, timeslice):
-        return self._constant
-
-class PowerEvalTests(unittest.TestCase):
-    """
-    Tests of the power evaluation object
-    """
-    def test_required_power(self):
-        pe = PowerEval([ConstantRequired(10), ConstantRequired(11)])
-        self.assertEquals(21.0, pe.required_power(datetime.now(timezone.utc), timedelta(1)))
+if __name__ == '__main__':
+    run()

@@ -18,27 +18,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-from .eobject import EObject
+from esimulation.eobjects.electricity_provider import ElectricityProvider
 
-class EConsumer(EObject):
+class EObjectFactory(object):
     """
-    This is the base class for objects that provides
-    the power usage of the simulated environment.
-    Implementations must be designed to support several instanciations
-    and also calls in different threads on one single instance.
+    This class holds the glue that creates an object
+    from it's type name. Used to load the configuration.
     """
-    def consume_required(self, when, timeslice):
-        """
-        Asks for the required power usage at the provided time and for the given
-        time slice.
-        Returns a double in kWh
-        """
-        raise RuntimeError("EConsumer.consume_required is not implemented")
-
-    def consume_optional(self, when, timeslice, available_kwh):
-        """
-        Asks for optional power usage at the provided time and for the given
-        time slice.
-        Returns a tuple with 1 the kWh and 2 the price paid for it
-        """
-        raise RuntimeError("EConsumer.consume_optional is not implemented")
+    def create(self, name):
+        if name == 'electricity_provider':
+            return ElectricityProvider()
+        else:
+            raise NameError("Unknown EObject type '{}'".format(name))

@@ -20,9 +20,9 @@
 
 from datetime import timedelta
 
-from ..utils.progress import Progress
-from .timeslice import TimeSlice
-from .powereval import PowerEval
+from esimulation.utils.progress import Progress
+from esimulation.core.timeslice import TimeSlice
+from esimulation.core.powereval import PowerEval
 
 class Engine(object):
     """
@@ -57,7 +57,7 @@ class Engine(object):
             dt = ts.get(now)
 
             needed = pe.required_power(now, dt)
-            produced = pe.produced_always(now, dt)
+            produced = pe.produce_always(now, dt)
 
             residual = 0
             missing = 0
@@ -67,7 +67,8 @@ class Engine(object):
             if de < 0:
                 residual = pe.consume_optional(dt, abs(de))
             elif de > 0:
-                missing = pe.produce_on_demand(dt, de)
+                raise RuntimeError("not yet implemented")
+                #missing = pe.produce_on_demand(dt, de)
 
             # Store the result
             self._store(now, dt, needed, produced, de, residual, missing)

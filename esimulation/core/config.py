@@ -23,7 +23,7 @@ from datetime import datetime
 
 import dateutil.parser
 
-from ..eobjects.factory import EObjectFactory
+from esimulation.eobjects.factory import EObjectFactory
 
 class Config(object):
     """

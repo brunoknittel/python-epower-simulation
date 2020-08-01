@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-from .eobject import EObject
+from esimulation.core.eobject import EObject
 
 class EProduction(EObject):
     """

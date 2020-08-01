@@ -18,31 +18,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-# Main program entry point:
-#   defines and parses command line arguments
-#   and then run the simulation
+from unittest import TestCase
+from datetime import datetime, timezone, timedelta
 
-import argparse
+from esimulation.core.powereval import PowerEval
+from esimulation.core.eobject import EObject
 
-from core.config import Config
-from core.engine import Engine
+class ConstantRequired(EObject):
+    def __init__(self, constant):
+        super().__init__(False, True)
+        self._constant = constant
 
-if __name__ == "__main__":
-    # Command line parsing
-    parser = argparse.ArgumentParser(description='Electrical production and usage simulator.')
-    parser.add_argument('conf', type=str, nargs=1, help='path to the simulation configuration file')
+    def consume_required(self, when, timeslice):
+        return self._constant
 
-    args = parser.parse_args()
-
-    # Load the configuration file...
-    config = Config(args.conf)
-
-    # ...create the engine and...
-    engine = Engine(config)
-
-    # FIRE!
-    engine.run()
-
-    # hum...at some point we might want to display some progress
-    # and maybe even some results ;-)
-
+class PowerEvalTests(TestCase):
+    """
+    Tests of the power evaluation object
+    """
+    def test_required_power(self):
+        pe = PowerEval([ConstantRequired(10), ConstantRequired(11)])
+        self.assertEquals(21.0, pe.required_power(datetime.now(timezone.utc), timedelta(1)))

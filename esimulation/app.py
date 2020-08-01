@@ -18,15 +18,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-from .electricity_provider import ElectricityProvider
+from argparse import ArgumentParser
 
-class EObjectFactory(object):
+from esimulation.core.config import Config
+from esimulation.core.engine import Engine
+
+def run():
     """
-    This class holds the glue that creates an object
-    from it's type name. Used to load the configuration.
+    Main program entry point
     """
-    def create(self, name):
-        if name == 'electricity_provider':
-            return ElectricityProvider()
-        else:
-            raise NameError("Unknown EObject type '{}'".format(name))
+      # Command line parsing
+    parser = ArgumentParser(description='Electrical production and usage simulator.')
+    parser.add_argument('conf', type=str, nargs=1, help='path to the simulation configuration file')
+
+    args = parser.parse_args()
+
+    # Load the configuration file...
+    config = Config(args.conf)
+
+    # ...create the engine and...
+    engine = Engine(config)
+
+    # FIRE!
+    engine.run()
+
+    # hum...at some point we might want to display some progress
+    # and maybe even some results ;-)

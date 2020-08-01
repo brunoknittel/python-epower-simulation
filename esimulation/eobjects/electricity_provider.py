@@ -18,8 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # ---- END OF LICENSE TEXT ----
 
-from .eproduction import EProduction
-from .econsumer import EConsumer
+from esimulation.core.eproduction import EProduction
+from esimulation.core.econsumer import EConsumer
 
 class ElectricityProvider(EProduction, EConsumer):
     """
